@@ -5,7 +5,7 @@
 
 void stations_array ()
 {
-    const char *words[] = {"Mirpur", "Shahbagh", "DU"};
+    const char *words[] = {"Uttara" , "Mirpur" , "Bijoy Sarani" , "Farmgate" , "Kawran Bazar" , "Shahbagh", "Dhaka University" , "Motijheel"};
 
     for (int i = 0; i < sizeof(words) / sizeof(words[0]); i++) 
     {
@@ -25,12 +25,40 @@ int main ()
     stations_array();
     scanf("%d" , &to);
 
-    int amount;
-    amount = (to - from) * 10;
-    printf("Amount : %d taka\n" , abs(amount));
+    int time_required , amount;
 
-    int time_required;
-    time_required = (to - from) * 5;
+    if(from == 1 && to == 2 || from == 2 && to == 1)
+    {
+        amount = 40;
+        time_required = 15;
+    }
+    else if(from == 1 && to > 2 || from > 2 && to == 1)
+    {
+        amount = 40 + (abs(to - 2) * 10);
+        time_required = 15 + (abs(to - 2) * 5);
+    }
+    else if(from == 2 && to == 3 || from == 3 && to == 2)
+    {
+        amount = 20;
+        time_required = 15;
+    }
+    else if(from == 2 && to > 3 || from > 3 && to == 2)
+    {
+        amount = 20 + (abs(to - 2) * 10);
+        time_required = 15 + (abs(to - 2) * 5);
+    }
+    else if(from > 3 && to == 2 || to > 3 && from == 2)
+    {
+        amount = 20 + (abs(to - from) * 10);
+    }
+    else
+    {
+        amount = abs(to - from) * 10;
+        time_required = abs(to - from) * 5;
+    }
+
+    printf("Amount : %d taka\n" , amount);
+
   
 
 //Time
@@ -50,6 +78,8 @@ int main ()
     localTime = localtime(&currentTime);
 
     printf("Boarding time : %s" , asctime(localTime));
+
+    printf("Duration : %d min\n" , time_required);
 
     return 0;
 }
